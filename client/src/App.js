@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css'
 
-import axios from 'axios'
-
 // Import Components
 import NavBar from "./components/NavBar"
 import ArtistList from "./components/ArtistList"
@@ -11,23 +9,21 @@ import Artist from "./components/Artist"
 
 class App extends Component {
 
-    state = {
-        artists: []
-    }
+    // state = {
+    //     artists: []
+    // }
 
-    async componentWillMount () {
-        try {
-            const response = await axios.get('/api/artists')
-            this.setState({artists: response.data})
-        } catch(error) {
-            console.log(error)
-        }
-    }
+    // async componentWillMount () {
+    //     try {
+    //         const response = await axios.get('/api/artists')
+    //         this.setState({artists: response.data})
+    //     } catch(error) {
+    //         console.log(error)
+    //     }
+    // }
 
     render() {
 
-      const ArtistListComponent = () => (<ArtistList artists={this.state.artists}/>)
-      
         return (
             <Router>
                 <div className="App">
@@ -35,10 +31,10 @@ class App extends Component {
 
                     <NavBar/>
 
-                <Switch>
-                    <Route exact path="/" render={ArtistListComponent} />
-                    <Route path="/artists/:artistId" component={Artist} />
-                </Switch>
+                    <Switch>
+                        <Route exact path="/" component={ArtistList} />
+                        <Route path="/artist/:id" component={Artist} />
+                    </Switch>
 
                 </div>
             </Router>

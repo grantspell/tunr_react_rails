@@ -15,10 +15,10 @@ class Artist extends Component {
     
     fetchArtistAndSongData = async (artistId) => {
         try {
-            const artist = await axios.get(`/api/artists/${artistId}`)
+            const artistData = await axios.get(`/api/artists/${artistId}`)
             await this.setState({
-                artist: artist.data.artist,
-                songs: artist.data.songs
+                artist: artistData.data.artist,
+                songs: artistData.data.songs
             });
 
         } catch (error) {
@@ -30,11 +30,14 @@ class Artist extends Component {
         return (
             <div>
                 <h1>{this.state.artist.name}</h1>
-                <pre>{JSON.stringify(this.state.artist)}</pre>
+                {/* <pre>{JSON.stringify(this.state.artist)}</pre> */}
                 <img src={this.state.artist.photo_url} alt={this.state.artist.name + "'s Artist Photo"} />
-                <ul>
-
-                </ul>
+                {this.state.songs.map(song => (
+                    <div key={song.id}>
+                        <h4>{song.title}</h4>
+                        <audio controls src={song.preview_url}></audio>
+                    </div>
+                ))}                    
             </div>
         );
     }
